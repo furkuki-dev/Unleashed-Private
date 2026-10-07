@@ -14,11 +14,11 @@
 static uint8_t kia_v5_custom_to_btn(uint8_t custom_btn_id, uint8_t original_btn) {
     switch(custom_btn_id) {
     case SUBGHZ_CUSTOM_BTN_UP:
-        return 0x02U; // Lock
+        return 0x01U; // Lock
     case SUBGHZ_CUSTOM_BTN_DOWN:
-        return 0x01U; // Unlock
+        return 0x02U; // Unlock
     case SUBGHZ_CUSTOM_BTN_LEFT:
-        return 0x04U; // Trunk
+        return 0x03U; // Trunk
     case SUBGHZ_CUSTOM_BTN_RIGHT:
         return 0x08U; // Horn
     case SUBGHZ_CUSTOM_BTN_OK:
@@ -876,11 +876,11 @@ SubGhzProtocolStatus
 
 static const char* subghz_protocol_kia_v5_get_name_button(uint8_t btn) {
     switch(btn) {
-    case 0x01:
-        return "Unlock";
     case 0x02:
+        return "Unlock";
+    case 0x01:
         return "Lock";
-    case 0x04:
+    case 0x03:
         return "Trunk";
     case 0x08:
         return "Horn";
