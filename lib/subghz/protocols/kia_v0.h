@@ -5,7 +5,7 @@
 // [PROTOPIRATE_PORT] File ported from ProtoPirate kia_v0 (multi-type KIA/SUZUKI/HONDA).
 // Exported symbol names preserved for ARF registry/catalog compatibility.
 
-#define SUBGHZ_PROTOCOL_KIA_V0_NAME "KIA/HYU V0"
+#define SUBGHZ_PROTOCOL_KIA_V0_NAME "KOREAN"
 
 // [PROTOPIRATE_PORT] Sub-type identifiers exposed for deserialization/UI
 #define KIA_V0_SUBTYPE_KIA    1U
