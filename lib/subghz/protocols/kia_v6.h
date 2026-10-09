@@ -2,7 +2,7 @@
 
 #include "base.h"
 
-#define SUBGHZ_PROTOCOL_KIA_V6_NAME "KIA/HYU V6"
+#define SUBGHZ_PROTOCOL_KIA_V6_NAME "KOREAN"
 
 typedef struct SubGhzProtocolDecoderKiaV6 SubGhzProtocolDecoderKiaV6;
 typedef struct SubGhzProtocolEncoderKiaV6 SubGhzProtocolEncoderKiaV6;
