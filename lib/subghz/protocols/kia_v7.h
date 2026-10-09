@@ -12,7 +12,7 @@
 #include <lib/toolbox/level_duration.h>
 #include <lib/toolbox/manchester_decoder.h>
 
-#define KIA_PROTOCOL_V7_NAME "Kia V7"
+#define KIA_PROTOCOL_V7_NAME "KOREAN"
 
 typedef struct SubGhzProtocolDecoderKiaV7 SubGhzProtocolDecoderKiaV7;
 typedef struct SubGhzProtocolEncoderKiaV7 SubGhzProtocolEncoderKiaV7;
