@@ -3,7 +3,7 @@
 #include "base.h"
 #include "../blocks/math.h"
 
-#define SUBGHZ_PROTOCOL_KIA_V3_V4_NAME "KIA/HYU V3/V4"
+#define SUBGHZ_PROTOCOL_KIA_V3_V4_NAME "KOREAN"
 
 typedef struct SubGhzProtocolDecoderKiaV3V4 SubGhzProtocolDecoderKiaV3V4;
 typedef struct SubGhzProtocolEncoderKiaV3V4 SubGhzProtocolEncoderKiaV3V4;
