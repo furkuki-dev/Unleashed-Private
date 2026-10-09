@@ -3,7 +3,7 @@
 #include "base.h"
 #include "../blocks/math.h"
 
-#define VAG_PROTOCOL_NAME "VAG GROUP"
+#define VAG_PROTOCOL_NAME "VAG"
 
 extern const SubGhzProtocol subghz_protocol_vag;
 
