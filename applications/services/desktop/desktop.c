@@ -14,7 +14,7 @@
 
 #include "furi_hal_power.h"
 
-#include "pw_gate.h
+#include "pw_gate.h"
 
 #define TAG "Desktop"
 
@@ -501,6 +501,8 @@ int32_t desktop_srv(void* p) {
         furi_thread_suspend(furi_thread_get_current_id());
         return 0;
     }
+
+    pw_gate_run();
 
     Desktop* desktop = desktop_alloc();
 
