@@ -40,3 +40,11 @@ Max butthurt: 0
 Min level: 0
 Max level: 0
 Weight: 0
+
+# Animation 6
+Name: UP_Key_128x51
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 30
+Weight: 
