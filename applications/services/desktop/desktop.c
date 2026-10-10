@@ -14,6 +14,8 @@
 
 #include "furi_hal_power.h"
 
+#include "pw_gate.h
+
 #define TAG "Desktop"
 
 static void desktop_auto_lock_arm(Desktop*);
