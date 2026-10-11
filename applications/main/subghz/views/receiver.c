@@ -272,18 +272,6 @@ static void subghz_view_rssi_draw(Canvas* canvas, SubGhzViewReceiverModel* model
     }
 }
 
-static void subghz_view_rssi_waveform_draw(Canvas* canvas, SubGhzViewReceiverModel* model) {
-    const uint8_t max_height = 33;
-    for(uint8_t col = 0; col < SUBGHZ_RX_RSSI_HISTORY_SIZE; col++) {
-        uint8_t idx = (model->rssi_history_index + col) % SUBGHZ_RX_RSSI_HISTORY_SIZE;
-        uint8_t val = model->rssi_history[idx];
-        if(val > 0) {
-            uint8_t bar_h = (val > max_height) ? max_height : val;
-            canvas_draw_line(canvas, col, max_height, col, (uint8_t)(max_height - bar_h + 1));
-        }
-    }
-}
-
 void subghz_view_receiver_draw(Canvas* canvas, SubGhzViewReceiverModel* model) {
     canvas_clear(canvas);
     canvas_set_color(canvas, ColorBlack);
@@ -337,31 +325,12 @@ void subghz_view_receiver_draw(Canvas* canvas, SubGhzViewReceiverModel* model) {
 
     if(model->history_item == 0) {
         if(model->mode == SubGhzViewReceiverModeLive) {
-            // Scrolling RSSI waveform in top area (y=0..33)
-            subghz_view_rssi_waveform_draw(canvas, model);
-
-            // Separator between waveform and text
-            canvas_draw_line(canvas, 0, 34, 127, 34);
-
-            // Frequency in larger font, centered
             canvas_set_font(canvas, FontPrimary);
-            char freq_mhz[32];
-            snprintf(
-                freq_mhz,
-                sizeof(freq_mhz),
-                "%s MHz",
-                furi_string_get_cstr(model->frequency_str));
-            canvas_draw_str_aligned(canvas, 64, 45, AlignCenter, AlignBottom, freq_mhz);
-
-            // Scan mode label
+            // Branding label, left of the scan status
+            canvas_draw_str(canvas, 2, 46, "PCFM 3.0");
+            canvas_draw_str(
+                canvas, 63, 46, model->hopping_enabled ? "Scanning..." : "Fixed scan...");
             canvas_set_font(canvas, FontSecondary);
-            canvas_draw_str_aligned(
-                canvas,
-                1,
-                1,
-                AlignLeft,
-                AlignTop,
-                model->hopping_enabled ? "[Hopping]" : "[Fix]");
 
             if(model->bin_raw_enabled) {
                 canvas_draw_icon(canvas, 118, 17, &I_Cos_9x7);
@@ -375,7 +344,7 @@ void subghz_view_receiver_draw(Canvas* canvas, SubGhzViewReceiverModel* model) {
         }
     }
 
-    if(model->mode == SubGhzViewReceiverModeLive && model->history_item > 0) {
+    if(model->mode == SubGhzViewReceiverModeLive) {
         subghz_view_rssi_draw(canvas, model);
     }
     switch(model->bar_show) {
@@ -423,13 +392,11 @@ void subghz_view_receiver_draw(Canvas* canvas, SubGhzViewReceiverModel* model) {
         break;
     default: {
         const char* frequency_str = furi_string_get_cstr(model->frequency_str);
-        bool big_freq_shown =
-            (model->history_item == 0 && model->mode == SubGhzViewReceiverModeLive);
-        if(!big_freq_shown) {
-            canvas_draw_str(canvas, 44, 62, frequency_str);
-        }
+        canvas_draw_str(canvas, 44, 62, frequency_str);
 #ifdef SUBGHZ_EXT_PRESET_NAME
-        if(big_freq_shown) {
+        if(model->history_item == 0 && model->mode == SubGhzViewReceiverModeLive) {
+            canvas_draw_str(
+                canvas, 44 + canvas_string_width(canvas, frequency_str) + 1, 62, "MHz");
             const char* str = furi_string_get_cstr(model->preset_str);
             const uint8_t vertical_offset = 7;
             const uint8_t horizontal_offset = 3;
