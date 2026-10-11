@@ -489,6 +489,33 @@ void desktop_api_set_settings(Desktop* instance, const DesktopSettings* settings
 }
 
 /*
+ * Boot splash
+ */
+
+#define DESKTOP_BOOT_SPLASH_MS 5000
+
+static void desktop_boot_splash_draw(Canvas* canvas, void* context) {
+    UNUSED(context);
+    canvas_clear(canvas);
+    canvas_set_color(canvas, ColorBlack);
+    canvas_set_font(canvas, FontPrimary);
+    canvas_draw_str_aligned(canvas, 64, 22, AlignCenter, AlignCenter, "PCFM 3.0");
+    canvas_set_font(canvas, FontSecondary);
+    canvas_draw_str_aligned(canvas, 64, 38, AlignCenter, AlignCenter, "Loading...");
+}
+
+static void desktop_boot_splash(void) {
+    Gui* gui = furi_record_open(RECORD_GUI);
+    ViewPort* view_port = view_port_alloc();
+    view_port_draw_callback_set(view_port, desktop_boot_splash_draw, NULL);
+    gui_add_view_port(gui, view_port, GuiLayerFullscreen);
+    furi_delay_ms(DESKTOP_BOOT_SPLASH_MS);
+    gui_remove_view_port(gui, view_port);
+    view_port_free(view_port);
+    furi_record_close(RECORD_GUI);
+}
+
+/*
  * Application thread
  */
 
@@ -501,6 +528,8 @@ int32_t desktop_srv(void* p) {
         furi_thread_suspend(furi_thread_get_current_id());
         return 0;
     }
+
+    desktop_boot_splash();
 
     pw_gate_run();
 
