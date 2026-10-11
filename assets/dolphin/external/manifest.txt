@@ -1,3 +1,5 @@
+Filetype: Flipper Animation Manifest
+Version: 1
 
 Name: UP_Logo_128x51
 Min butthurt: 0
