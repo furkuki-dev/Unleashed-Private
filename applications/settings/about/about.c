@@ -167,8 +167,7 @@ static DialogMessageButton fw_version_screen(DialogsApp* dialogs, DialogMessage*
         furi_hal_info_get_api_version(&api_major, &api_minor);
         furi_string_cat_printf(
             buffer,
-            "%s [%s]\n%s%s [%d.%d] %s\n[%d] %s",
-            version_get_version(ver),
+            "PCFM 3.0 (%s)\n%s%s [%d.%d] %s\n[%d] %s",
             version_get_builddate(ver),
             version_get_dirty_flag(ver) ? "[!] " : "",
             version_get_githash(ver),
